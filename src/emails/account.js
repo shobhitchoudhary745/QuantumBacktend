@@ -3,8 +3,9 @@ const api = process.env.API;
 sg.setApiKey(api);
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
-const sendWelcomeEmail = async (email, name, password, age, res) => {
-  let arr = age.split("/");
+const sendWelcomeEmail = async (email, name, password, dob, res) => {
+  let arr = dob.split("-");
+  
   const options = {
     userPassword: arr[0] + arr[1] + arr[2],
   };

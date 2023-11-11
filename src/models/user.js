@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const userSchema = new mongoose.Schema({
   Name: {
@@ -8,40 +7,24 @@ const userSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  age: {
+  dob: {
     type: String,
     required: true,
-    default: 0,
-    validate(value) {
-      if (value < 0) {
-        throw new Error("age must be positive");
-      }
-    },
   },
   password: {
     type: String,
     required: true,
-    minlength: 7,
     trim: true,
-    validate(value) {
-      if (value.toLowerCase().includes("password")) {
-        throw new Error("password can not contain password");
-      }
-    },
   },
   email: {
     type: String,
     required: true,
     unique: true,
     lowercase: true,
-    validate(value) {
-      if (!validator.isEmail(value)) {
-        throw new Error("Email is invalid");
-      }
-    },
   },
-  tokens:{
-    type:String
+  role:{
+    type:String,
+    required:true
   }
  
 });
@@ -81,6 +64,6 @@ userSchema.pre("save", async function (next) {
 
 
 
-const User = mongoose.model("userDetails", userSchema);
+const User = mongoose.model("Details", userSchema);
 
 module.exports = User;
